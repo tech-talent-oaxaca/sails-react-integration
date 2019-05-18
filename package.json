@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "description": "a Sails application",
   "keywords": [],
+  "engines": {
+    "node": ">=8.15.0"
+  },
   "dependencies": {
     "sails": "^1.1.0",
     "grunt": "1.0.1",
