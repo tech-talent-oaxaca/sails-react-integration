@@ -5,23 +5,43 @@
   "description": "a Sails application",
   "keywords": [],
   "engines": {
-    "node": ">=8.15.0"
+    "node": "^8.15"
   },
   "dependencies": {
-    "sails": "^1.1.0",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "@sailshq/connect-redis": "^3.2.1",
+    "@sailshq/lodash": "^3.10.3",
+    "@sailshq/socket.io-redis": "^5.2.0",
     "grunt": "1.0.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "sails": "^1.1.0",
     "sails-hook-grunt": "^3.1.0",
     "sails-hook-orm": "^2.1.1",
-    "sails-hook-sockets": "^1.5.5",
-    "@sailshq/connect-redis": "^3.2.1",
-    "@sailshq/socket.io-redis": "^5.2.0",
-    "@sailshq/lodash": "^3.10.3"
+    "sails-hook-sockets": "^1.5.5"
   },
   "devDependencies": {
-    "@sailshq/eslint": "^4.19.3"
+    "@sailshq/eslint": "^4.19.3",
+    "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^2.6.3",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1"
   },
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
+    "start:node": "NODE_ENV=production node app.js",
+    "start": "npm-run-all --parallel open:client lift",
+    "start:debug": "npm-run-all --parallel open:client debug",
+    "open:client": "webpack-dev-server --mode development --open",
+    "build": "npm run build:prod",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production",
+    "clean": "rimraf .tmp && mkdirp .tmp/public",
+    "lift": "sails lift",
+    "debug": "node --inspect app.js",
     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
     "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
@@ -32,8 +52,5 @@
     "url": "git://github.com/edgar/react-integration.git"
   },
   "author": "edgar",
-  "license": "",
-  "engines": {
-    "node": "^8.15"
-  }
+  "license": ""
 }
